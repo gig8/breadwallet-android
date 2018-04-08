@@ -66,6 +66,11 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
              src/main/jni/breadwallet-core/bcash/BRBCashParams.h
 
+             # Mota files
+             src/main/jni/breadwallet-core/mota/BRMotaAddr.c
+             src/main/jni/breadwallet-core/mota/BRMotaAddr.h
+             src/main/jni/breadwallet-core/mota/BRMotaParams.h
+
              # Core JNI files
              src/main/jni/breadwallet-core/Java/BRCoreJni.h
              src/main/jni/breadwallet-core/Java/BRCoreJni.c
