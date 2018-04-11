@@ -256,8 +256,8 @@ public class WalletsMaster {
     public void initWallets(Context app) {
         if (!mWallets.contains(WalletBitcoinManager.getInstance(app)))
             mWallets.add(WalletBitcoinManager.getInstance(app));
-        if (!mWallets.contains(WalletBchManager.getInstance(app)))
-            mWallets.add(WalletBchManager.getInstance(app));
+//        if (!mWallets.contains(WalletBchManager.getInstance(app)))
+//            mWallets.add(WalletBchManager.getInstance(app));
     }
 
     public void initLastWallet(Context app) {
