@@ -363,7 +363,7 @@ public class KVStoreManager {
         txMetaData.exchangeCurrency = BRSharedPrefs.getPreferredFiatIso(app);
         txMetaData.exchangeRate = CurrencyDataSource.getInstance(app).getCurrencyByCode(app, wm.getIso(app), txMetaData.exchangeCurrency).rate;
         txMetaData.fee = wm.getWallet().getTransactionFee(tx);
-        txMetaData.txSize = (int) tx.getSize();
+        txMetaData.txSize = (int) tx.getSize(wm.getForkId());
         txMetaData.blockHeight = BRSharedPrefs.getLastBlockHeight(app, wm.getIso(app));
         txMetaData.creationTime = (int) (System.currentTimeMillis() / 1000);//seconds
         txMetaData.deviceId = BRSharedPrefs.getDeviceId(app);

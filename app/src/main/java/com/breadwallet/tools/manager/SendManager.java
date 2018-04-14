@@ -400,8 +400,8 @@ public class SendManager {
 
         String iso = BRSharedPrefs.getPreferredFiatIso(ctx);
         BaseWalletManager wallet = WalletsMaster.getInstance(ctx).getCurrentWallet(ctx);
-        long size = request.tx.getSize();
-        long stdFee = request.tx.getStandardFee();
+        long size = request.tx.getSize(wallet.getForkId());
+        long stdFee = request.tx.getStandardFee(wallet.getForkId());
         long feeForTx = walletManager.getWallet().getTransactionFee(request.tx);
         if (feeForTx <= 0) {
             long maxAmount = walletManager.getWallet().getMaxOutputAmount();

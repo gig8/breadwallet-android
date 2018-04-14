@@ -254,7 +254,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
             BRCoreKey signingKey = new BRCoreKey(key);
 
-            long fee = walletManager.getWallet().getFeeForTransactionSize(transaction.getSize() + 34 + (signingKey.getPubKey().length - 33) * transaction.getInputs().length);
+            long fee = walletManager.getWallet().getFeeForTransactionSize(transaction.getSize(walletManager.getForkId()) + 34 + (signingKey.getPubKey().length - 33) * transaction.getInputs().length);
             transaction.addOutput(new BRCoreTransactionOutput(totalAmount - fee, address.getPubKeyScript()));
             return transaction;
         } catch (JSONException e) {

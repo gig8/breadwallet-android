@@ -138,7 +138,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             //long time = 1519190488;
 //            long time = (System.currentTimeMillis() / 1000) - 3 * 7 * 24 * 60 * 60; // 3 * 7
 
-            instance = new WalletMotaCoinManager(app, pubKey, BuildConfig.BITCOIN_TESTNET ? BRCoreChainParams.testnetChainParams : BRCoreChainParams.mainnetChainParams, time);
+            instance = new WalletMotaCoinManager(app, pubKey, BuildConfig.BITCOIN_TESTNET ? BRCoreChainParams.testnetMotaChainParams : BRCoreChainParams.mainnetMotaChainParams, time);
         }
         return instance;
     }
@@ -254,7 +254,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
                     tx.getReverseHash(), getWallet().getTransactionAmountSent(tx),
                     getWallet().getTransactionAmountReceived(tx), getWallet().getTransactionFee(tx),
                     tx.getOutputAddresses(), tx.getInputAddresses(),
-                    getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(),
+                    getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(getForkId()),
                     getWallet().getTransactionAmount(tx), getWallet().transactionIsValid(tx)));
         }
 
