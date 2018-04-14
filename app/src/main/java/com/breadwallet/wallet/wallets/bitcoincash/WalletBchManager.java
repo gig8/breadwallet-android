@@ -656,7 +656,7 @@ public class WalletBchManager extends BRCoreWalletManager implements BaseWalletM
         for (int i = 0; i < blocks.size(); i++) {
 
             BRMerkleBlockEntity ent = blocks.get(i);
-            arr[i] = new BRCoreMerkleBlock(ent.getBuff(), ent.getBlockHeight());
+            arr[i] = new BRCoreMerkleBlock(getAlgoId(), ent.getBuff(), ent.getBlockHeight());
         }
         return arr;
     }

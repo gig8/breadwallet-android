@@ -70,6 +70,8 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/mota/BRMotaAddr.c
              src/main/jni/breadwallet-core/mota/BRMotaAddr.h
              src/main/jni/breadwallet-core/mota/BRMotaParams.h
+             src/main/jni/breadwallet-core/mota/BRX13Crypto.c
+             src/main/jni/breadwallet-core/mota/BRX13Crypto.h
 
              # X11 files
              src/main/jni/breadwallet-core/crypto/aes_helper.c
