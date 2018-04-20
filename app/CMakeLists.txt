@@ -67,8 +67,6 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/bcash/BRBCashParams.h
 
              # Mota files
-             src/main/jni/breadwallet-core/mota/BRMotaAddr.c
-             src/main/jni/breadwallet-core/mota/BRMotaAddr.h
              src/main/jni/breadwallet-core/mota/BRMotaParams.h
              src/main/jni/breadwallet-core/mota/BRX13Crypto.c
              src/main/jni/breadwallet-core/mota/BRX13Crypto.h
@@ -133,16 +131,6 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCorePaymentProtocol.h
              src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.c
              src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.h
-
-             # BCash files
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.c
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
-             src/main/jni/breadwallet-core/bcash/BRBCashParams.h
-
-             # Mota files
-             src/main/jni/breadwallet-core/mota/BRMotaAddr.c
-             src/main/jni/breadwallet-core/mota/BRMotaAddr.h
-             src/main/jni/breadwallet-core/mota/BRMotaParams.h
 
              # Bech32 files
              src/main/jni/breadwallet-core/BRBech32.c

@@ -165,7 +165,7 @@ public class CryptoUriParser {
             if (obj.iso.equalsIgnoreCase("bch"))
                 trimmedHost = scheme + ":" + trimmedHost; //bitcoin cash has the scheme attached to the address
             String addrs = wm.undecorateAddress(app, trimmedHost);
-            if (!Utils.isNullOrEmpty(addrs) && new BRCoreAddress(addrs).isValid()) {
+            if (!Utils.isNullOrEmpty(addrs) && new BRCoreAddress(addrs).isValid(wm.getParams())) {
                 obj.address = addrs;
             }
         }
@@ -262,10 +262,10 @@ public class CryptoUriParser {
         }
         if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
             return false;
-        BaseWalletManager wallet = WalletsMaster.getInstance(app).getCurrentWallet(app);
-        if (requestObject.iso != null && !requestObject.iso.equalsIgnoreCase(wallet.getIso(ctx))) {
+        BaseWalletManager wm = WalletsMaster.getInstance(app).getCurrentWallet(app);
+        if (requestObject.iso != null && !requestObject.iso.equalsIgnoreCase(wm.getIso(ctx))) {
 
-            BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), "Not a valid " + wallet.getName(ctx) + " address", app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+            BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), "Not a valid " + wm.getName(ctx) + " address", app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
                 @Override
                 public void onClick(BRDialogView brDialogView) {
                     brDialogView.dismiss();
@@ -284,11 +284,11 @@ public class CryptoUriParser {
             });
         } else {
             BRAnimator.killAllFragments(app);
-            if (Utils.isNullOrEmpty(requestObject.address) || !new BRCoreAddress(requestObject.address).isValid()) {
+            if (Utils.isNullOrEmpty(requestObject.address) || !new BRCoreAddress(requestObject.address).isValid(wm.getParams())) {
                 BRDialog.showSimpleDialog(app, app.getString(R.string.Send_invalidAddressTitle), "");
                 return true;
             }
-            BRCoreTransaction tx = wallet.getWallet().createTransaction(requestObject.amount.longValue(), new BRCoreAddress(requestObject.address));
+            BRCoreTransaction tx = wm.getWallet().createTransaction(requestObject.amount.longValue(), new BRCoreAddress(requestObject.address));
             if (tx == null) {
                 BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), "Insufficient amount for transaction", app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
                     @Override
@@ -299,7 +299,7 @@ public class CryptoUriParser {
                 return true;
             }
             requestObject.tx = tx;
-            SendManager.sendTransaction(app, requestObject, wallet);
+            SendManager.sendTransaction(app, requestObject, wm);
         }
 
         return true;

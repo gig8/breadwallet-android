@@ -8,6 +8,7 @@ import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import com.breadwallet.R;
+import com.breadwallet.core.BRCoreChainParams;
 import com.breadwallet.core.BRCoreKey;
 import com.breadwallet.core.BRCoreMasterPubKey;
 import com.breadwallet.core.BRCoreTransaction;
@@ -225,7 +226,7 @@ public class PostAuth {
                         txMetaData.exchangeCurrency = BRSharedPrefs.getPreferredFiatIso(app);
                         txMetaData.exchangeRate = CurrencyDataSource.getInstance(app).getCurrencyByCode(app, walletManager.getIso(app), txMetaData.exchangeCurrency).rate;
                         txMetaData.fee = walletManager.getWallet().getTransactionFee(mCryptoRequest.tx);
-                        txMetaData.txSize = (int) mCryptoRequest.tx.getSize(walletManager.getForkId());
+                        txMetaData.txSize = (int) mCryptoRequest.tx.getSize();
                         txMetaData.blockHeight = BRSharedPrefs.getLastBlockHeight(app, walletManager.getIso(app));
                         txMetaData.creationTime = (int) (System.currentTimeMillis() / 1000);//seconds
                         txMetaData.deviceId = BRSharedPrefs.getDeviceId(app);

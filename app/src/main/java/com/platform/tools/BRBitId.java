@@ -6,6 +6,7 @@ import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Base64;
 import android.util.Log;
 
+import com.breadwallet.core.BRCoreChainParams;
 import com.breadwallet.core.BRCoreKey;
 import com.breadwallet.core.BRCoreMasterPubKey;
 import com.breadwallet.presenter.interfaces.BRAuthCompletion;
@@ -243,7 +244,7 @@ public class BRBitId {
             return;
         }
         final String sig = BRBitId.signMessage(_strToSign, new BRCoreKey(key));
-        final String address = new BRCoreKey(key).address();
+        final String address = new BRCoreKey(key).address(BRCoreChainParams.mainnetChainParams);
 
         JSONObject postJson = new JSONObject();
         Log.e(TAG, "GLIDERA: address:" + address);
@@ -304,7 +305,7 @@ public class BRBitId {
         }
 
         final String sig = BRBitId.signMessage(uriWithNonce, new BRCoreKey(key));
-        final String address = new BRCoreKey(key).address();
+        final String address = new BRCoreKey(key).address(BRCoreChainParams.mainnetChainParams);
         Log.e(TAG, "LINK: address: " + address);
         JSONObject postJson = new JSONObject();
         try {
