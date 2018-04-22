@@ -487,6 +487,7 @@
   <string name="Settings.currencySettings">Currency Settings</string>
   <string name="Settings.bitcoin">Bitcoin</string>
   <string name="Settings.bitcoinCash">BitcoinCash</string>
+  <string name="Settings.motacoin">MotaCoin</string>
   <string name="Settings.other">Other</string>
   <string name="Settings.aboutBread">About BRD</string>
   <!-- Join Early access label -->

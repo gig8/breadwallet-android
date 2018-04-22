@@ -63,13 +63,13 @@ public class CryptoUriParser {
     private static final String TAG = CryptoUriParser.class.getName();
     private static final Object lockObject = new Object();
 
-    public static synchronized boolean processRequest(Context app, String url, BaseWalletManager walletManager) {
+    public static synchronized boolean processRequest(Context app, String url, BaseWalletManager wm) {
         if (url == null) {
             Log.e(TAG, "processRequest: url is null");
             return false;
         }
 
-        if (ImportPrivKeyTask.trySweepWallet(app, url, walletManager)) return true;
+        if (ImportPrivKeyTask.trySweepWallet(app, url, wm)) return true;
 
         if (tryBreadUrl(app, url)) return true; //see if it's a bread url
 
@@ -124,7 +124,6 @@ public class CryptoUriParser {
         return (requestObject != null && (requestObject.isPaymentProtocol() || requestObject.hasAddress()));
     }
 
-
     public static CryptoRequest parseRequest(Context app, String str) {
         if (str == null || str.isEmpty()) return null;
         CryptoRequest obj = new CryptoRequest();
@@ -134,9 +133,13 @@ public class CryptoUriParser {
         Uri u = Uri.parse(tmp);
         String scheme = u.getScheme();
 
+        BaseWalletManager wm = WalletsMaster.getInstance(app).getCurrentWallet(app);
+
+
         if (scheme == null) {
-            scheme = WalletBitcoinManager.getInstance(app).getScheme(app);
-            obj.iso = WalletBitcoinManager.getInstance(app).getIso(app);
+            // We should be able to check the
+            scheme = wm.getScheme(app);
+            obj.iso = wm.getIso(app);
 
         } else {
             for (BaseWalletManager walletManager : WalletsMaster.getInstance(app).getAllWallets()) {
@@ -156,8 +159,6 @@ public class CryptoUriParser {
         }
 
         u = Uri.parse(scheme + "://" + schemeSpecific);
-
-        BaseWalletManager wm = WalletsMaster.getInstance(app).getCurrentWallet(app);
 
         String host = u.getHost();
         if (host != null) {
