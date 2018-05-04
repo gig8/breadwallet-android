@@ -346,7 +346,10 @@ public class FragmentSend extends Fragment {
                                             firstLine = getString(R.string.Sendbtc_UsedAddress_firstLine);
                                         } else if (walletIso.equalsIgnoreCase("BCH")) {
                                             firstLine = getString(R.string.Sendbch_UsedAddress_firstLine);
+                                        } else if (walletIso.equalsIgnoreCase("MOTA")) {
+                                            firstLine = getString(R.string.Sendmota_UsedAddress_firstLine);
                                         }
+
                                         BRDialog.showCustomDialog(getActivity(), firstLine, getString(R.string.Send_UsedAddress_secondLIne), "Ignore", "Cancel", new BRDialogView.BROnClickListener() {
                                             @Override
                                             public void onClick(BRDialogView brDialogView) {
@@ -469,7 +472,7 @@ public class FragmentSend extends Fragment {
 //                }
 
                 if (allFilled) {
-                    CryptoRequest item = new CryptoRequest(tx, null, false, comment, req.address, cryptoAmount);
+                    CryptoRequest item = new CryptoRequest(tx, null, false, comment, req.address, cryptoAmount, wm.getIso(app));
                     SendManager.sendTransaction(getActivity(), item, wm);
                 }
             }

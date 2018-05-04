@@ -250,13 +250,19 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         List<TxUiHolder> uiTxs = new ArrayList<>();
         for (int i = txs.length - 1; i >= 0; i--) { //revere order
             BRCoreTransaction tx = txs[i];
-            uiTxs.add(new TxUiHolder(tx.getTimestamp(), (int) tx.getBlockHeight(), tx.getHash(),
-                    tx.getReverseHash(), getWallet().getTransactionAmountSent(tx),
-                    getWallet().getTransactionAmountReceived(tx), getWallet().getTransactionFee(tx),
-                    tx.getOutputAddresses(), tx.getInputAddresses(),
-                    getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(),
-                    getWallet().getTransactionAmount(tx), getWallet().transactionIsValid(tx)));
-        }
+
+//            if (tx.getBlockHeight() == Integer.MAX_VALUE) { // testing issues, remove
+//                getWallet().removeTransaction(tx.getHash());
+//            }
+//            else {
+                uiTxs.add(new TxUiHolder(tx.getTimestamp(), (int) tx.getBlockHeight(), tx.getHash(),
+                        tx.getReverseHash(), getWallet().getTransactionAmountSent(tx),
+                        getWallet().getTransactionAmountReceived(tx), getWallet().getTransactionFee(tx),
+                        tx.getOutputAddresses(), tx.getInputAddresses(),
+                        getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(),
+                        getWallet().getTransactionAmount(tx), getWallet().transactionIsValid(tx)));
+            }
+//        }
 
         return uiTxs;
     }
@@ -638,6 +644,17 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         Context app = BreadApp.getBreadContext();
 
         List<BRTransactionEntity> txs = BtcBchTransactionDataStore.getInstance(app).getAllTransactions(app, getIso(app));
+        if (txs == null || txs.size() == 0) return new BRCoreTransaction[0];
+
+        // debug cleanup
+        for (int i = 0; i < txs.size(); i++) {
+            BRTransactionEntity ent = txs.get(i);
+            if (ent.getBlockheight() == Integer.MAX_VALUE) {
+                BtcBchTransactionDataStore.getInstance(app).deleteTxByHash(app, ent.getTxISO(), ent.getTxHash());
+            }
+        }
+
+        txs = BtcBchTransactionDataStore.getInstance(app).getAllTransactions(app, getIso(app));
         if (txs == null || txs.size() == 0) return new BRCoreTransaction[0];
         BRCoreTransaction arr[] = new BRCoreTransaction[txs.size()];
         for (int i = 0; i < txs.size(); i++) {

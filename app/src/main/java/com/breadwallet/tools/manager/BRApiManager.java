@@ -15,6 +15,7 @@ import com.breadwallet.tools.util.Utils;
 import com.breadwallet.wallet.WalletsMaster;
 import com.breadwallet.wallet.abstracts.BaseWalletManager;
 import com.breadwallet.wallet.wallets.bitcoin.WalletBitcoinManager;
+import com.breadwallet.wallet.wallets.motacoin.WalletMotaCoinManager;
 import com.platform.APIClient;
 
 import org.json.JSONArray;
@@ -192,7 +193,7 @@ public class BRApiManager {
     }
 
     public static JSONArray backupFetchRates(Activity app, BaseWalletManager walletManager) {
-        if (!walletManager.getIso(app).equalsIgnoreCase(WalletBitcoinManager.getInstance(app).getIso(app))) {
+        if (!walletManager.getIso(app).equalsIgnoreCase(WalletMotaCoinManager.getInstance(app).getIso(app))) {
             //todo add backup for BCH
             return null;
         }
