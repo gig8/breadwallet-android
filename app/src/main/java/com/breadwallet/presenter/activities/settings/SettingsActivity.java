@@ -212,25 +212,25 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_currencySettings), "", null, true));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_bitcoin), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, CurrencySettingsActivity.class);
-                BRSharedPrefs.putCurrentWalletIso(app, "BTC"); //change the current wallet to the one they enter settings to
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
-        }, false));
-
-        items.add(new BRSettingsItem(getString(R.string.Settings_bitcoinCash), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, CurrencySettingsActivity.class);
-                BRSharedPrefs.putCurrentWalletIso(app, "BCH");//change the current wallet to the one they enter settings to
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
-        }, false));
+//        items.add(new BRSettingsItem(getString(R.string.Settings_bitcoin), "", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SettingsActivity.this, CurrencySettingsActivity.class);
+//                BRSharedPrefs.putCurrentWalletIso(app, "BTC"); //change the current wallet to the one they enter settings to
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+//            }
+//        }, false));
+//
+//        items.add(new BRSettingsItem(getString(R.string.Settings_bitcoinCash), "", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SettingsActivity.this, CurrencySettingsActivity.class);
+//                BRSharedPrefs.putCurrentWalletIso(app, "BCH");//change the current wallet to the one they enter settings to
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+//            }
+//        }, false));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_motacoin), "", new View.OnClickListener() {
             @Override
