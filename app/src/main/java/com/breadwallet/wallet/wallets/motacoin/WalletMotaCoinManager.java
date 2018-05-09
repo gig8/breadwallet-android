@@ -295,28 +295,28 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             int unit = BRSharedPrefs.getCryptoDenomination(app, getIso(app));
             switch (unit) {
                 case BRConstants.CURRENT_UNIT_BITS:
-                    currencySymbolString = BRConstants.symbolBits;
+                    currencySymbolString = "µM"; //BRConstants.symbolBits;
                     break;
                 case BRConstants.CURRENT_UNIT_MBITS:
+                    currencySymbolString = "mM"; //BRConstants.symbolBits;
 
-
-                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
-                        currencySymbolString = "m" + BRConstants.symbolBitcoinPrimary;
-
-                    } else {
-                        currencySymbolString = "m" + BRConstants.symbolBitcoinSecondary;
-
-                    }
+//                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
+//                        currencySymbolString = "m" + BRConstants.symbolBitcoinPrimary;
+//
+//                    } else {
+//                        currencySymbolString = "m" + BRConstants.symbolBitcoinSecondary;
+//
+//                    }
                     break;
                 case BRConstants.CURRENT_UNIT_BITCOINS:
+                    currencySymbolString = "M"; //BRConstants.symbolBits;
 
-                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
-                        currencySymbolString = BRConstants.symbolBitcoinPrimary;
-
-                    } else {
-                        currencySymbolString = BRConstants.symbolBitcoinSecondary;
-
-                    }
+//                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
+//                        currencySymbolString = BRConstants.symbolBitcoinPrimary;
+//
+//                    } else {
+//                        currencySymbolString = BRConstants.symbolBitcoinSecondary;
+//                    }
                     break;
             }
         }
