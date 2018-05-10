@@ -267,7 +267,7 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">Node Connection Status</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Bitcoin Nodes</string>
+  <string name="NodeSelector.title">MotaCoin Nodes</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Bad Payment Request</string>
   <!-- Error opening payment protocol file message -->
@@ -279,9 +279,9 @@
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">Couldn\'t make payment</string>
   <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">Bitcoin payments can\'t be less than %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallPayment">MotaCoin payments can\'t be less than %1$s.</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">Bitcoin transaction outputs can\'t be less than %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">MotaCoin transaction outputs can\'t be less than %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">unsupported signature type</string>
   <!-- Untrusted certificate payment protocol error message -->
@@ -368,7 +368,7 @@
   <string name="RecoverWallet.subheader_reset_pin">To reset your PIN, enter the words from your paper key into the boxes below.</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">Please enter an amount first.</string>
-  <!-- Request a specific amount of bitcoin -->
+  <!-- Request a specific amount of MotaCoin -->
   <string name="RequestAnAmount.title">Request an Amount</string>
   <!-- Alert action button label -->
   <string name="ReScan.alertAction">Sync</string>
@@ -405,7 +405,7 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Enable all security features for maximum protection.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">The only way to access your bitcoin if you lose or upgrade your phone.</string>
+  <string name="SecurityCenter.paperKeyDescription">The only way to access your MotaCoin if you lose or upgrade your phone.</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Paper Key</string>
   <!-- PIN button description -->
@@ -447,9 +447,9 @@
   <!-- Payee identity not certified alert title. -->
   <string name="Send.identityNotCertified">Payee identity isn\'t certified.</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">The destination address is not a valid bitcoin address.</string>
+  <string name="Send.invalidAddressMessage">The destination address is not a valid MotaCoin address.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Pasteboard does not contain a valid bitcoin address.</string>
+  <string name="Send.invalidAddressOnPasteboard">Pasteboard does not contain a valid MotaCoin address.</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Invalid Address</string>
   <!-- Is rescanning error message -->
@@ -648,7 +648,7 @@
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">to %1$s</string>
   <!-- Transaction ID header -->
-  <string name="TransactionDetails.txHashHeader">Bitcoin Transaction ID</string>
+  <string name="TransactionDetails.txHashHeader">MotaCoin Transaction ID</string>
   <!-- (this transaction was) Received at this address: -->
   <string name="TransactionDirection.address">Received at this Address</string>
   <!-- (this transaction was) Sent to this address: -->
@@ -676,7 +676,7 @@
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">Wallet Unlocked</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">Remember this PIN. If you forget it, you won\'t be able to access your bitcoin.</string>
+  <string name="UpdatePin.caption">Remember this PIN. If you forget it, you won\'t be able to access your MotaCoin.</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">Your PIN will be used to unlock your MotaCoin and send money.</string>
   <!-- Update PIN title -->
@@ -753,6 +753,7 @@
   <string name="WritePaperPhrase.step">%1$d of %2$d</string>
   <!-- Currency labels -->
   <string name="CurrencyBitcoin">Bitcoin</string>
+  <string name="CurrencyMotaCoin">MotaCoin</string>
   <string name="CurrencyBitcoinCash">BitcoinCash</string>
   <string name="CurrencyBalance">Balance</string>
   <string name="CurrencyBuy">Buy</string>
