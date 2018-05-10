@@ -149,30 +149,30 @@ public class HomeActivity extends BRActivity implements InternetManager.Connecti
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
 
-        if (!BRSharedPrefs.wasBchDialogShown(this)) {
-            BRDialog.showHelpDialog(this, getString(R.string.Dialog_welcomeBchTitle), getString(R.string.Dialog_welcomeBchMessage), getString(R.string.Dialog_Home), getString(R.string.Dialog_Dismiss), new BRDialogView.BROnClickListener() {
-                @Override
-                public void onClick(BRDialogView brDialogView) {
-                    brDialogView.dismissWithAnimation();
-                }
-            }, new BRDialogView.BROnClickListener() {
-
-                @Override
-                public void onClick(BRDialogView brDialogView) {
-                    getFragmentManager().popBackStack();
-                }
-            }, new BRDialogView.BROnClickListener() {
-                @Override
-                public void onClick(BRDialogView brDialogView) {
-                    Log.d(TAG, "help clicked!");
-                    brDialogView.dismissWithAnimation();
-                    BRAnimator.showSupportFragment(HomeActivity.this, BRConstants.bchFaq);
-
-                }
-            });
-
-            BRSharedPrefs.putBchDialogShown(HomeActivity.this, true);
-        }
+//        if (!BRSharedPrefs.wasBchDialogShown(this)) {
+//            BRDialog.showHelpDialog(this, getString(R.string.Dialog_welcomeBchTitle), getString(R.string.Dialog_welcomeBchMessage), getString(R.string.Dialog_Home), getString(R.string.Dialog_Dismiss), new BRDialogView.BROnClickListener() {
+//                @Override
+//                public void onClick(BRDialogView brDialogView) {
+//                    brDialogView.dismissWithAnimation();
+//                }
+//            }, new BRDialogView.BROnClickListener() {
+//
+//                @Override
+//                public void onClick(BRDialogView brDialogView) {
+//                    getFragmentManager().popBackStack();
+//                }
+//            }, new BRDialogView.BROnClickListener() {
+//                @Override
+//                public void onClick(BRDialogView brDialogView) {
+//                    Log.d(TAG, "help clicked!");
+//                    brDialogView.dismissWithAnimation();
+//                    BRAnimator.showSupportFragment(HomeActivity.this, BRConstants.bchFaq);
+//
+//                }
+//            });
+//
+//            BRSharedPrefs.putBchDialogShown(HomeActivity.this, true);
+//        }
 
         mPromptDismiss.setColor(Color.parseColor("#b3c0c8"));
         mPromptDismiss.setOnClickListener(new View.OnClickListener() {

@@ -22,9 +22,9 @@ public class AboutActivity extends BRActivity {
     private TextView policyText;
     private TextView infoText;
 
-    private ImageView redditShare;
+    private ImageView discordShare;
     private ImageView twitterShare;
-    private ImageView blogShare;
+    private ImageView instagramShare;
     private static AboutActivity app;
 
     public static AboutActivity getApp() {
@@ -56,14 +56,14 @@ public class AboutActivity extends BRActivity {
 
         infoText.setText(String.format(Locale.getDefault(), getString(R.string.About_footer), verCode));
 
-        redditShare = (ImageView) findViewById(R.id.reddit_share_button);
+        discordShare = (ImageView) findViewById(R.id.discord_share_button);
         twitterShare = (ImageView) findViewById(R.id.twitter_share_button);
-        blogShare = (ImageView) findViewById(R.id.blog_share_button);
+        instagramShare = (ImageView) findViewById(R.id.instagram_share_button);
 
-        redditShare.setOnClickListener(new View.OnClickListener() {
+        discordShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://reddit.com/r/breadwallet/"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/ChVEFdU"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -72,15 +72,15 @@ public class AboutActivity extends BRActivity {
         twitterShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/breadapp"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/Motacoin_"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
         });
-        blogShare.setOnClickListener(new View.OnClickListener() {
+        instagramShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://breadapp.com/blog/"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/Motacoin"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -88,7 +88,7 @@ public class AboutActivity extends BRActivity {
         policyText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://breadapp.com/privacy-policy"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://realmotacoin.com/privacy-policy"));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
