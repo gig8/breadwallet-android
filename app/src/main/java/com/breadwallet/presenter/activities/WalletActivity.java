@@ -314,6 +314,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
 
         TxManager.getInstance().updateTxList(WalletActivity.this);
 
+        /*
         if (!BRSharedPrefs.wasBchDialogShown(this)) {
             BRDialog.showHelpDialog(this, getString(R.string.Dialog_welcomeBchTitle), getString(R.string.Dialog_welcomeBchMessage), getString(R.string.Dialog_Home), getString(R.string.Dialog_Dismiss), new BRDialogView.BROnClickListener() {
                 @Override
@@ -341,7 +342,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
 
             BRSharedPrefs.putBchDialogShown(WalletActivity.this, true);
         }
-
+*/
 
     }
 
