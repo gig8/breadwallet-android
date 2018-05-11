@@ -6,11 +6,11 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
-        applicationId = 'com.breadwallet'
+        applicationId = 'com.realmotacoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 211
-        versionName "211"
+        versionCode 300
+        versionName "300"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
@@ -51,8 +51,8 @@ android {
     flavorDimensions "mode"
 
     productFlavors {
-        brd {
-            applicationId = "com.breadwallet"
+        mota {
+            applicationId = "com.realmotacoin"
             dimension "mode"
             resValue "string", "app_name", "MotaCoin"
             buildConfigField "boolean", "BITCOIN_TESTNET", "false"
@@ -68,8 +68,8 @@ android {
             }
         }
 
-        brdTestnet {
-            applicationId = "com.breadtestnet"
+        motaTestnet {
+            applicationId = "com.motatestnet"
             dimension "mode"
             resValue "string", "app_name", "MotaCoinTest"
             buildConfigField "boolean", "BITCOIN_TESTNET", "true"

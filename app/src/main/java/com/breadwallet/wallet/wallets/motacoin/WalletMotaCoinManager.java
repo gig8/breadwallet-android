@@ -175,7 +175,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             WalletsMaster.getInstance(app).updateFixedPeer(app, this);
 //        balanceListeners = new ArrayList<>();
 
-            uiConfig = new WalletUiConfiguration("#007B3B", true, true, false);
+            uiConfig = new WalletUiConfiguration("#00A242", true, true, false);
 
         } finally {
             isInitiatingWallet = false;
