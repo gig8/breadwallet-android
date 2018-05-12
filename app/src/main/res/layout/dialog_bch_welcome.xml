@@ -7,6 +7,7 @@
 
     <ImageButton
         android:id="@+id/bch_dialog_help"
+        android:visibility="gone"
         android:background="@drawable/faq_question_black"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"

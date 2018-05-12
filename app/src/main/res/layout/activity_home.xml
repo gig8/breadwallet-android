@@ -23,26 +23,24 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/motacoin_logo_id"
-
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/motacoin_logo"/>
 
             <ImageView
-                android:id="@+id/motacoin_title"
                 android:layout_width="250dp"
                 android:layout_height="38dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginStart="90dp"
-                android:background="@drawable/motacoin_logo_gradient"
-                app:layout_constraintLeft_toLeftOf="motacoin_logo_id" />
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/motacoin_logo_gradient" />
 
             <com.breadwallet.presenter.customviews.BRText
                 android:id="@+id/total_assets_label"
@@ -277,6 +275,7 @@
 
             <RelativeLayout
                 android:id="@+id/support_row"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_below="@id/security_row"
