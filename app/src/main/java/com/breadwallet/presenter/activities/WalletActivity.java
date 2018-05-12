@@ -192,6 +192,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             }
         });
 
+        /*
         mBalancePrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +205,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
                 swap();
             }
         });
+*/
 
         TxManager.getInstance().init(this);
 
@@ -215,7 +217,8 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         boolean cryptoPreferred = BRSharedPrefs.isCryptoPreferred(this);
 
         if (cryptoPreferred) {
-            swap();
+            setPriceTags(cryptoPreferred, true);
+//            swap();
         }
 
         // Check if the "Twilight" screen altering app is currently running
