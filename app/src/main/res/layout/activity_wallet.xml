@@ -139,7 +139,7 @@
 
                     <com.breadwallet.presenter.customviews.BRText
                         android:id="@+id/balance_primary"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -155,7 +155,7 @@
 
                     <ImageButton
                         android:id="@+id/swap"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_marginBottom="23dp"

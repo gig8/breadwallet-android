@@ -202,14 +202,14 @@ public class SettingsActivity extends BRActivity {
             }
         }, false));
 
-//        items.add(new BRSettingsItem(getString(R.string.Settings_currency), BRSharedPrefs.getPreferredFiatIso(this), new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SettingsActivity.this, DisplayCurrencyActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-//            }
-//        }, false));
+        items.add(new BRSettingsItem(getString(R.string.Settings_currency), BRSharedPrefs.getPreferredFiatIso(this), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, DisplayCurrencyActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+        }, false));
 
 
         items.add(new BRSettingsItem(getString(R.string.Settings_currencySettings), "", null, true));

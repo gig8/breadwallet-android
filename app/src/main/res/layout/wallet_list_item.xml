@@ -20,7 +20,7 @@
 
     <com.breadwallet.presenter.customviews.BRText
         android:id="@+id/wallet_trade_price"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/wallet_name"
@@ -31,7 +31,7 @@
 
     <com.breadwallet.presenter.customviews.BRText
         android:id="@+id/wallet_balance_currency"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -75,7 +75,7 @@
 
     <com.breadwallet.presenter.customviews.BRText
         android:id="@+id/wallet_balance_usd"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
