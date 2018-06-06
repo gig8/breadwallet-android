@@ -123,7 +123,7 @@ public class BRApiManager {
                         tmp.code = tmpObj.getString("code");
                         tmp.rate = (float) (tmpObj.getDouble("rate") * motaBtc);
 
-                        Log.e(TAG, "code: " + tmp.code + " rate: " + tmp.rate);
+//                        Log.e(TAG, "code: " + tmp.code + " rate: " + tmp.rate);
 
                         String selectedISO = BRSharedPrefs.getPreferredFiatIso(context);
 //                        Log.e(TAG,"selectedISO: " + selectedISO);
