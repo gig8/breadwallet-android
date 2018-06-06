@@ -443,9 +443,13 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             return null;
         }
         double rate = ent.rate;
+//        Log.e(TAG, "getFiatForSmallestCrypto rate: " + rate);
+
         //get crypto amount
         BigDecimal cryptoAmount = amount.divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE);
-        return cryptoAmount.multiply(new BigDecimal(rate));
+        BigDecimal fiat = cryptoAmount.multiply(new BigDecimal(rate));
+//        Log.e(TAG, "getFiatForSmallestCrypto fiat: " + fiat);
+        return fiat;
     }
 
     @Override
@@ -455,6 +459,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByCode(app, getIso(app), iso);
         if (ent == null) return null;
         double rate = ent.rate;
+
         //convert c to $.
         int unit = BRSharedPrefs.getCryptoDenomination(app, getIso(app));
         BigDecimal result = new BigDecimal(0);

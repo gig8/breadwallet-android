@@ -77,10 +77,10 @@
 
                     <com.breadwallet.presenter.customviews.BRText
                         android:id="@+id/currency_usd_price"
-                        android:visibility="invisible"
+                        android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$16,904.34 per BTC"
+                        android:text="$0.0132 per MOTA"
                         android:textColor="@color/trans_white"
                         android:textSize="@dimen/sub_header"
                         app:customTFont="CircularPro-Book.otf"
