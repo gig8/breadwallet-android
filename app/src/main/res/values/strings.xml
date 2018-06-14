@@ -333,7 +333,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Copied to clipboard.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Email</string>
+  <string name="Receive.emailButton">Browse</string>
   <!-- Request button label -->
   <string name="Receive.request">Request an Amount</string>
   <!-- Share button label -->

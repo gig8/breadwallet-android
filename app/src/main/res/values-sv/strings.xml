@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Kopierad till urklipp.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">E-post</string>
+  <string name="Receive.emailButton">Bläddra</string>
   <!-- Request button label -->
   <string name="Receive.request">Begär ett belopp</string>
   <!-- Share button label -->

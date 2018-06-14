@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">クリップボードにコピーされました。</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">メール</string>
+  <string name="Receive.emailButton">ブラウズ</string>
   <!-- Request button label -->
   <string name="Receive.request">金額のリクエスト</string>
   <!-- Share button label -->

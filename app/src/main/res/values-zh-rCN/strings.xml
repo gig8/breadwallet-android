@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">已复制到剪贴板。</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">电子邮件</string>
+  <string name="Receive.emailButton">瀏覽</string>
   <!-- Request button label -->
   <string name="Receive.request">申请金额</string>
   <!-- Share button label -->
