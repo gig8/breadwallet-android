@@ -9,8 +9,8 @@ android {
         applicationId = 'com.realmotacoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 303
-        versionName "1.0.1"
+        versionCode 305
+        versionName "1.0.3"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
@@ -19,7 +19,8 @@ android {
         ndk {
             // Specifies the ABI configurations of your native
             // libraries Gradle should build and package with your APK.
-            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 'armeabi',
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
         externalNativeBuild {
             cmake {
