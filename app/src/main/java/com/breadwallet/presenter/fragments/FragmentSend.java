@@ -334,7 +334,7 @@ public class FragmentSend extends Fragment {
                                         BRClipboardManager.putClipboard(getActivity(), "");
                                     }
                                 });
-
+/*
                             } else if (wm.getWallet().addressIsUsed(address)) {
                                 app.runOnUiThread(new Runnable() {
                                     @Override
@@ -364,7 +364,7 @@ public class FragmentSend extends Fragment {
                                         }, null, 0);
                                     }
                                 });
-
+*/
                             } else {
                                 app.runOnUiThread(new Runnable() {
                                     @Override
