@@ -33,6 +33,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.breadwallet.BreadApp;
+import com.breadwallet.core.BRCoreChainParams;
 import com.breadwallet.core.BRCoreKey;
 import com.breadwallet.tools.security.BRKeyStore;
 import com.breadwallet.tools.threads.executor.BRExecutor;

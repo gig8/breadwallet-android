@@ -88,8 +88,10 @@ public class WalletsMaster {
 //        Log.d(TAG, "getWalletByIso() Getting wallet by ISO -> " + iso);
         if (Utils.isNullOrEmpty(iso))
             throw new RuntimeException("getWalletByIso with iso = null, Cannot happen!");
-        if (iso.equalsIgnoreCase("BTC")) return WalletBitcoinManager.getInstance(app);
-        if (iso.equalsIgnoreCase("BCH")) return WalletBchManager.getInstance(app);
+//        if (iso.equalsIgnoreCase("BTC")) return WalletBitcoinManager.getInstance(app);
+  //      if (iso.equalsIgnoreCase("BCH")) return WalletBchManager.getInstance(app);
+        // TODO: find out why BTC gets set
+        if (iso.equalsIgnoreCase("BTC")) return WalletMotaCoinManager.getInstance(app);
         if (iso.equalsIgnoreCase("MOTA")) return WalletMotaCoinManager.getInstance(app);
         return null;
     }
@@ -257,8 +259,8 @@ public class WalletsMaster {
     public void initWallets(Context app) {
         if (!mWallets.contains(WalletMotaCoinManager.getInstance(app)))
             mWallets.add(WalletMotaCoinManager.getInstance(app));
-        if (!mWallets.contains(WalletBitcoinManager.getInstance(app)))
-            mWallets.add(WalletBitcoinManager.getInstance(app));
+//        if (!mWallets.contains(WalletBitcoinManager.getInstance(app)))
+//            mWallets.add(WalletBitcoinManager.getInstance(app));
 //        if (!mWallets.contains(WalletBchManager.getInstance(app)))
 //            mWallets.add(WalletBchManager.getInstance(app));
     }
@@ -272,7 +274,7 @@ public class WalletsMaster {
             }
         }
         BaseWalletManager wallet = getWalletByIso(app, BRSharedPrefs.getCurrentWalletIso(app));
-        if (wallet == null) wallet = getWalletByIso(app, "BTC");
+        if (wallet == null) wallet = getWalletByIso(app, "MOTA");
         wallet.connectWallet(app);
     }
 

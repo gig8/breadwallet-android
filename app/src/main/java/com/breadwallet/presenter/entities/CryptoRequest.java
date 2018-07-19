@@ -37,7 +37,7 @@ import java.math.BigDecimal;
 
 public class CryptoRequest {
     public static final String TAG = CryptoRequest.class.getName();
-    public String iso = "BTC"; //make it default
+    public String iso = "MOTA"; //make it default
     public String address;
     public String scheme;
     public String r;
@@ -50,13 +50,14 @@ public class CryptoRequest {
     public String cn;
     public boolean isAmountRequested;
 
-    public CryptoRequest(BRCoreTransaction tx, String certificationName, boolean isAmountRequested, String message, String address, BigDecimal amount) {
+    public CryptoRequest(BRCoreTransaction tx, String certificationName, boolean isAmountRequested, String message, String address, BigDecimal amount, String iso) {
         this.isAmountRequested = isAmountRequested;
         this.tx = tx;
         this.cn = certificationName;
         this.address = address;
         this.amount = amount;
         this.message = message;
+        this.iso = iso;
     }
 
     public CryptoRequest() {

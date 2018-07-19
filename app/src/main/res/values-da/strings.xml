@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Kopieret til udklipsholder.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">E-mail</string>
+  <string name="Receive.emailButton">Gennemse</string>
   <!-- Request button label -->
   <string name="Receive.request">Anmod om et beløb</string>
   <!-- Share button label -->

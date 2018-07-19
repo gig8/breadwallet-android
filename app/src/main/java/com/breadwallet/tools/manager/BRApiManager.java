@@ -15,6 +15,7 @@ import com.breadwallet.tools.util.Utils;
 import com.breadwallet.wallet.WalletsMaster;
 import com.breadwallet.wallet.abstracts.BaseWalletManager;
 import com.breadwallet.wallet.wallets.bitcoin.WalletBitcoinManager;
+import com.breadwallet.wallet.wallets.motacoin.WalletMotaCoinManager;
 import com.platform.APIClient;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,9 +37,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSink;
+
+import static com.breadwallet.tools.util.BRCompressor.gZipExtract;
 
 /**
  * BreadWallet
@@ -92,6 +109,8 @@ public class BRApiManager {
         }
         Set<CurrencyEntity> set = new LinkedHashSet<>();
         try {
+            double motaBtc = fetchMotaRate(context);
+            Log.d(TAG, "motaBtc: " + motaBtc);
             JSONArray arr = fetchRates(context, walletManager);
             updateFeePerKb(context);
             if (arr != null) {
@@ -102,7 +121,10 @@ public class BRApiManager {
                         JSONObject tmpObj = (JSONObject) arr.get(i);
                         tmp.name = tmpObj.getString("name");
                         tmp.code = tmpObj.getString("code");
-                        tmp.rate = (float) tmpObj.getDouble("rate");
+                        tmp.rate = (float) (tmpObj.getDouble("rate") * motaBtc);
+
+//                        Log.e(TAG, "code: " + tmp.code + " rate: " + tmp.rate);
+
                         String selectedISO = BRSharedPrefs.getPreferredFiatIso(context);
 //                        Log.e(TAG,"selectedISO: " + selectedISO);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
@@ -174,6 +196,48 @@ public class BRApiManager {
         }
     }
 
+    public static double fetchMotaRate(Activity app) {
+        String url = "https://tradesatoshi.com/api/public/getticker?market=MOTA_BTC";
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .build();
+
+        Response response = null;
+        ResponseBody postReqBody = null;
+        byte[] data = new byte[0];
+        try {
+            OkHttpClient client = new OkHttpClient.Builder().followRedirects(false).connectTimeout(10, TimeUnit.SECONDS)/*.addInterceptor(new LoggingInterceptor())*/.build();
+//            Log.e(TAG, "sendRequest: before executing the request: " + request.headers().toString());
+            Log.d(TAG, "sendRequest: headers for : " + request.url() + "\n" + request.headers());
+
+            response = client.newCall(request).execute();
+            String jsonString = null;
+            try {
+                data = response.body().bytes();
+                jsonString = new String(data);
+                Log.d(TAG, jsonString);
+
+                JSONArray jsonArray = null;
+                if (jsonString == null) return 0;
+                try {
+                    JSONObject obj = new JSONObject(jsonString);
+                    return obj.getJSONObject("result").getDouble("last");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static JSONArray fetchRates(Activity app, BaseWalletManager walletManager) {
         String url = "https://" + BreadApp.HOST + "/rates?currency=" + walletManager.getIso(app);
         String jsonString = urlGET(app, url);
@@ -192,7 +256,7 @@ public class BRApiManager {
     }
 
     public static JSONArray backupFetchRates(Activity app, BaseWalletManager walletManager) {
-        if (!walletManager.getIso(app).equalsIgnoreCase(WalletBitcoinManager.getInstance(app).getIso(app))) {
+        if (!walletManager.getIso(app).equalsIgnoreCase(WalletMotaCoinManager.getInstance(app).getIso(app))) {
             //todo add backup for BCH
             return null;
         }

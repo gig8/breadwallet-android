@@ -192,6 +192,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             }
         });
 
+
         mBalancePrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,6 +206,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             }
         });
 
+
         TxManager.getInstance().init(this);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
@@ -215,7 +217,8 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         boolean cryptoPreferred = BRSharedPrefs.isCryptoPreferred(this);
 
         if (cryptoPreferred) {
-            swap();
+            setPriceTags(cryptoPreferred, true);
+//            swap();
         }
 
         // Check if the "Twilight" screen altering app is currently running
@@ -314,6 +317,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
 
         TxManager.getInstance().updateTxList(WalletActivity.this);
 
+        /*
         if (!BRSharedPrefs.wasBchDialogShown(this)) {
             BRDialog.showHelpDialog(this, getString(R.string.Dialog_welcomeBchTitle), getString(R.string.Dialog_welcomeBchMessage), getString(R.string.Dialog_Home), getString(R.string.Dialog_Dismiss), new BRDialogView.BROnClickListener() {
                 @Override
@@ -341,7 +345,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
 
             BRSharedPrefs.putBchDialogShown(WalletActivity.this, true);
         }
-
+*/
 
     }
 

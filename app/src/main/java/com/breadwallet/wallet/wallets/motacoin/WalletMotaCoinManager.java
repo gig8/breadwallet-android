@@ -138,7 +138,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             //long time = 1519190488;
 //            long time = (System.currentTimeMillis() / 1000) - 3 * 7 * 24 * 60 * 60; // 3 * 7
 
-            instance = new WalletMotaCoinManager(app, pubKey, BuildConfig.BITCOIN_TESTNET ? BRCoreChainParams.testnetChainParams : BRCoreChainParams.mainnetChainParams, time);
+            instance = new WalletMotaCoinManager(app, pubKey, BuildConfig.BITCOIN_TESTNET ? BRCoreChainParams.testnetMotaChainParams : BRCoreChainParams.mainnetMotaChainParams, time);
         }
         return instance;
     }
@@ -155,7 +155,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
                 Log.e(TAG, "connectWallet: app is null");
                 return;
             }
-            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address();
+            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address(chainParams);
             BRSharedPrefs.putFirstAddress(app, firstAddress);
             long fee = BRSharedPrefs.getFeePerKb(app, getIso(app));
             long economyFee = BRSharedPrefs.getEconomyFeePerKb(app, getIso(app));
@@ -175,7 +175,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             WalletsMaster.getInstance(app).updateFixedPeer(app, this);
 //        balanceListeners = new ArrayList<>();
 
-            uiConfig = new WalletUiConfiguration("#007B3B", true, true, false);
+            uiConfig = new WalletUiConfiguration("#00A242", true, true, false);
 
         } finally {
             isInitiatingWallet = false;
@@ -250,13 +250,19 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         List<TxUiHolder> uiTxs = new ArrayList<>();
         for (int i = txs.length - 1; i >= 0; i--) { //revere order
             BRCoreTransaction tx = txs[i];
-            uiTxs.add(new TxUiHolder(tx.getTimestamp(), (int) tx.getBlockHeight(), tx.getHash(),
-                    tx.getReverseHash(), getWallet().getTransactionAmountSent(tx),
-                    getWallet().getTransactionAmountReceived(tx), getWallet().getTransactionFee(tx),
-                    tx.getOutputAddresses(), tx.getInputAddresses(),
-                    getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(),
-                    getWallet().getTransactionAmount(tx), getWallet().transactionIsValid(tx)));
-        }
+
+//            if (tx.getBlockHeight() == Integer.MAX_VALUE) { // testing issues, remove
+//                getWallet().removeTransaction(tx.getHash());
+//            }
+//            else {
+                uiTxs.add(new TxUiHolder(tx.getTimestamp(), (int) tx.getBlockHeight(), tx.getHash(),
+                        tx.getReverseHash(), getWallet().getTransactionAmountSent(tx),
+                        getWallet().getTransactionAmountReceived(tx), getWallet().getTransactionFee(tx),
+                        tx.getOutputAddresses(), tx.getInputAddresses(),
+                        getWallet().getBalanceAfterTransaction(tx), (int) tx.getSize(),
+                        getWallet().getTransactionAmount(tx), getWallet().transactionIsValid(tx)));
+            }
+//        }
 
         return uiTxs;
     }
@@ -289,28 +295,28 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             int unit = BRSharedPrefs.getCryptoDenomination(app, getIso(app));
             switch (unit) {
                 case BRConstants.CURRENT_UNIT_BITS:
-                    currencySymbolString = BRConstants.symbolBits;
+                    currencySymbolString = "µM"; //BRConstants.symbolBits;
                     break;
                 case BRConstants.CURRENT_UNIT_MBITS:
+                    currencySymbolString = "mM"; //BRConstants.symbolBits;
 
-
-                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
-                        currencySymbolString = "m" + BRConstants.symbolBitcoinPrimary;
-
-                    } else {
-                        currencySymbolString = "m" + BRConstants.symbolBitcoinSecondary;
-
-                    }
+//                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
+//                        currencySymbolString = "m" + BRConstants.symbolBitcoinPrimary;
+//
+//                    } else {
+//                        currencySymbolString = "m" + BRConstants.symbolBitcoinSecondary;
+//
+//                    }
                     break;
                 case BRConstants.CURRENT_UNIT_BITCOINS:
+                    currencySymbolString = "M"; //BRConstants.symbolBits;
 
-                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
-                        currencySymbolString = BRConstants.symbolBitcoinPrimary;
-
-                    } else {
-                        currencySymbolString = BRConstants.symbolBitcoinSecondary;
-
-                    }
+//                    if (symbolUtils.doesDeviceSupportSymbol(BRConstants.symbolBitcoinPrimary)) {
+//                        currencySymbolString = BRConstants.symbolBitcoinPrimary;
+//
+//                    } else {
+//                        currencySymbolString = BRConstants.symbolBitcoinSecondary;
+//                    }
                     break;
             }
         }
@@ -437,9 +443,13 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
             return null;
         }
         double rate = ent.rate;
+//        Log.e(TAG, "getFiatForSmallestCrypto rate: " + rate);
+
         //get crypto amount
         BigDecimal cryptoAmount = amount.divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE);
-        return cryptoAmount.multiply(new BigDecimal(rate));
+        BigDecimal fiat = cryptoAmount.multiply(new BigDecimal(rate));
+//        Log.e(TAG, "getFiatForSmallestCrypto fiat: " + fiat);
+        return fiat;
     }
 
     @Override
@@ -449,6 +459,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByCode(app, getIso(app), iso);
         if (ent == null) return null;
         double rate = ent.rate;
+
         //convert c to $.
         int unit = BRSharedPrefs.getCryptoDenomination(app, getIso(app));
         BigDecimal result = new BigDecimal(0);
@@ -517,11 +528,6 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         double rate = ent.rate;
         //convert c to $.
         return amount.divide(new BigDecimal(rate), 8, ROUNDING_MODE).multiply(new BigDecimal("100000000"));
-    }
-
-    @Override
-    public int getForkId() {
-        return super.getForkId();
     }
 
     @Override
@@ -644,10 +650,21 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
 
         List<BRTransactionEntity> txs = BtcBchTransactionDataStore.getInstance(app).getAllTransactions(app, getIso(app));
         if (txs == null || txs.size() == 0) return new BRCoreTransaction[0];
+
+        // debug cleanup
+        for (int i = 0; i < txs.size(); i++) {
+            BRTransactionEntity ent = txs.get(i);
+            if (ent.getBlockheight() == Integer.MAX_VALUE) {
+                BtcBchTransactionDataStore.getInstance(app).deleteTxByHash(app, ent.getTxISO(), ent.getTxHash());
+            }
+        }
+
+        txs = BtcBchTransactionDataStore.getInstance(app).getAllTransactions(app, getIso(app));
+        if (txs == null || txs.size() == 0) return new BRCoreTransaction[0];
         BRCoreTransaction arr[] = new BRCoreTransaction[txs.size()];
         for (int i = 0; i < txs.size(); i++) {
             BRTransactionEntity ent = txs.get(i);
-            arr[i] = new BRCoreTransaction(ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
+            arr[i] = new BRCoreTransaction(getParams(), ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
         }
         return arr;
     }
@@ -660,7 +677,7 @@ public class WalletMotaCoinManager extends BRCoreWalletManager implements BaseWa
         BRCoreMerkleBlock arr[] = new BRCoreMerkleBlock[blocks.size()];
         for (int i = 0; i < blocks.size(); i++) {
             BRMerkleBlockEntity ent = blocks.get(i);
-            arr[i] = new BRCoreMerkleBlock(ent.getBuff(), ent.getBlockHeight());
+            arr[i] = new BRCoreMerkleBlock(getAlgoId(), ent.getBuff(), ent.getBlockHeight());
         }
         return arr;
     }

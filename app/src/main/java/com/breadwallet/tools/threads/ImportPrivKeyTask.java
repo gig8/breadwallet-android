@@ -93,7 +93,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
         BRCoreKey coreKey = new BRCoreKey();
         coreKey.setPrivKey(key);
-        String tmpAddress = coreKey.address();
+        String tmpAddress = coreKey.address(wm.getParams());
         if (Utils.isNullOrEmpty(tmpAddress)) {
             String err = "doInBackground: failed to create the address for iso " + iso;
             BRReportsManager.reportBug(new NullPointerException(err));
@@ -138,9 +138,9 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
         if (mTransaction == null) return;
 
-        final BaseWalletManager walletManager = WalletsMaster.getInstance(app).getWalletByIso(app, iso);
+        final BaseWalletManager wm = WalletsMaster.getInstance(app).getWalletByIso(app, iso);
 
-        BigDecimal bigAmount = new BigDecimal(walletManager.getWallet().getTransactionAmount(mTransaction));
+        BigDecimal bigAmount = new BigDecimal(wm.getWallet().getTransactionAmount(mTransaction));
         BigDecimal bigFee = new BigDecimal(0);
 
         for (BRCoreTransactionInput in : mTransaction.getInputs())
@@ -148,11 +148,11 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
         for (BRCoreTransactionOutput out : mTransaction.getOutputs())
             bigFee = bigFee.subtract(new BigDecimal(out.getAmount()));
 
-        String formattedFiatAmount = CurrencyUtils.getFormattedAmount(app, BRSharedPrefs.getPreferredFiatIso(app), walletManager.getFiatForSmallestCrypto(app, bigAmount, null));
+        String formattedFiatAmount = CurrencyUtils.getFormattedAmount(app, BRSharedPrefs.getPreferredFiatIso(app), wm.getFiatForSmallestCrypto(app, bigAmount, null));
 
         //bits, BTCs..
-        String amount = CurrencyUtils.getFormattedAmount(app, walletManager.getIso(app), bigAmount);
-        String fee = CurrencyUtils.getFormattedAmount(app, walletManager.getIso(app), bigFee.abs());
+        String amount = CurrencyUtils.getFormattedAmount(app, wm.getIso(app), bigAmount);
+        String fee = CurrencyUtils.getFormattedAmount(app, wm.getIso(app), bigFee.abs());
         String message = String.format(app.getString(R.string.Import_confirm), amount, fee);
         String posButton = String.format("%s (%s)", amount, formattedFiatAmount);
         BRDialog.showCustomDialog(app, "", message, posButton, app.getString(R.string.Button_cancel), new BRDialogView.BROnClickListener() {
@@ -180,7 +180,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
                         BRCoreKey signingKey = new BRCoreKey(key);
 
-                        mTransaction.sign(signingKey, walletManager.getForkId());
+                        mTransaction.sign(signingKey);
 
                         if (!mTransaction.isSigned()) {
                             String err = "transaction is not signed";
@@ -189,7 +189,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
                             return;
                         }
 
-                        walletManager.getPeerManager().publishTransaction(mTransaction);
+                        wm.getPeerManager().publishTransaction(mTransaction);
                     }
                 });
 
@@ -222,15 +222,15 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
         String jsonString = BRApiManager.urlGET(app, url);
         if (jsonString == null || jsonString.isEmpty()) return null;
-        BaseWalletManager walletManager = WalletsMaster.getInstance(app).getWalletByIso(app, iso);
-        if (walletManager == null) {
+        BaseWalletManager wm = WalletsMaster.getInstance(app).getWalletByIso(app, iso);
+        if (wm == null) {
             String err = "createSweepingTx: wallet is null for: " + iso;
             BRReportsManager.reportBug(new NullPointerException(err));
             Log.e(TAG, err);
             return null;
         }
 
-        BRCoreTransaction transaction = new BRCoreTransaction();
+        BRCoreTransaction transaction = new BRCoreTransaction(wm.getParams());
         long totalAmount = 0;
 
         try {
@@ -244,18 +244,20 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
                 byte[] scriptPubKey = TypesConverter.hexToBytes(obj.getString("scriptPubKey"));
                 long amount = obj.getLong("satoshis");
                 totalAmount += amount;
-                BRCoreTransactionInput in = new BRCoreTransactionInput(txid, vout, amount, scriptPubKey, new byte[]{}, -1);
+                BRCoreTransactionInput in = new BRCoreTransactionInput(
+                        wm.getParams(),
+                        txid, vout, amount, scriptPubKey, new byte[]{}, -1);
                 transaction.addInput(in);
             }
 
             if (totalAmount <= 0) return null;
 //
-            BRCoreAddress address = walletManager.getReceiveAddress(app);
+            BRCoreAddress address = wm.getReceiveAddress(app);
 
             BRCoreKey signingKey = new BRCoreKey(key);
 
-            long fee = walletManager.getWallet().getFeeForTransactionSize(transaction.getSize() + 34 + (signingKey.getPubKey().length - 33) * transaction.getInputs().length);
-            transaction.addOutput(new BRCoreTransactionOutput(totalAmount - fee, address.getPubKeyScript()));
+            long fee = wm.getWallet().getFeeForTransactionSize(transaction.getSize() + 34 + (signingKey.getPubKey().length - 33) * transaction.getInputs().length);
+            transaction.addOutput(new BRCoreTransactionOutput(wm.getParams(), totalAmount - fee, address.getPubKeyScript(wm.getParams())));
             return transaction;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -264,7 +266,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
     }
 
 
-    public static boolean trySweepWallet(final Context ctx, final String privKey, final BaseWalletManager walletManager) {
+    public static boolean trySweepWallet(final Context ctx, final String privKey, final BaseWalletManager wm) {
         if (ctx == null) {
             Log.e(TAG, "trySweepWallet: ctx is null");
             return false;
@@ -312,13 +314,13 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
                             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String decryptedKey = BRCoreKey.decryptBip38Key(privKey, pass);
+                                    String decryptedKey = BRCoreKey.decryptBip38Key(wm.getParams(), privKey, pass);
                                     //if the decryptedKey is not empty then we have a regular private key and isValidBitcoinBIP38Key will be false
                                     if (decryptedKey.equals("")) {
                                         SpringAnimator.springView(input);
-                                        trySweepWallet(ctx, privKey, walletManager);
+                                        trySweepWallet(ctx, privKey, wm);
                                     } else {
-                                        trySweepWallet(ctx, decryptedKey, walletManager);
+                                        trySweepWallet(ctx, decryptedKey, wm);
                                     }
                                 }
                             });
@@ -338,7 +340,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
             return true;
         } else if (BRCoreKey.isValidBitcoinPrivateKey(privKey)) {
             Log.d(TAG, "isValidBitcoinPrivateKey true");
-            new ImportPrivKeyTask(((Activity) ctx)).execute(privKey, walletManager.getIso(ctx));
+            new ImportPrivKeyTask(((Activity) ctx)).execute(privKey, wm.getIso(ctx));
             return true;
         } else {
             Log.e(TAG, "trySweepWallet: !isValidBitcoinPrivateKey && !isValidBitcoinBIP38Key");

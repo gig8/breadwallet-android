@@ -20,6 +20,12 @@ import java.util.List;
 public class TransactionStorageManager {
     private static final String TAG = TransactionStorageManager.class.getSimpleName();
 
+    private static boolean checkIso(String iso) {
+        return (iso.equalsIgnoreCase("btc") ||
+                iso.equalsIgnoreCase("bch") ||
+                iso.equalsIgnoreCase("mota"));
+    }
+
     public static boolean putTransaction(Context app, String iso, BRTransactionEntity tx) {
         if (iso == null || tx == null || app == null) {
             Log.e(TAG, "putTransaction: failed: " + app + "|" + iso + "|" + tx);
@@ -27,7 +33,7 @@ public class TransactionStorageManager {
 
         }
 
-        if (iso.equalsIgnoreCase("btc") || iso.equalsIgnoreCase("bch")) {
+        if (checkIso(iso)) {
             BRTransactionEntity result = BtcBchTransactionDataStore.getInstance(app).putTransaction(app, iso, tx);
             return result != null;
         }
@@ -44,7 +50,7 @@ public class TransactionStorageManager {
 
         }
 
-        if (iso.equalsIgnoreCase("btc") || iso.equalsIgnoreCase("bch")) {
+        if (checkIso(iso)) {
             return BtcBchTransactionDataStore.getInstance(app).getAllTransactions(app, iso);
         }
 
@@ -60,7 +66,7 @@ public class TransactionStorageManager {
 
         }
 
-        if (iso.equalsIgnoreCase("btc") || iso.equalsIgnoreCase("bch")) {
+        if (checkIso(iso)) {
             return BtcBchTransactionDataStore.getInstance(app).updateTransaction(app, iso, tx);
 
         }
@@ -77,7 +83,7 @@ public class TransactionStorageManager {
 
         }
 
-        if (iso.equalsIgnoreCase("btc") || iso.equalsIgnoreCase("bch")) {
+        if (checkIso(iso)) {
             BtcBchTransactionDataStore.getInstance(app).deleteTxByHash(app, iso, hash);
             return true;
         }

@@ -154,7 +154,7 @@ public class WalletBchManager extends BRCoreWalletManager implements BaseWalletM
                 Log.e(TAG, "connectWallet: app is null");
                 return;
             }
-            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address();
+            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address(chainParams);
             BRSharedPrefs.putFirstAddress(app, firstAddress);
             long fee = BRSharedPrefs.getFeePerKb(app, getIso(app));
             long economyFee = BRSharedPrefs.getEconomyFeePerKb(app, getIso(app));
@@ -516,12 +516,6 @@ public class WalletBchManager extends BRCoreWalletManager implements BaseWalletM
         return amount.divide(new BigDecimal(rate), 8, ROUNDING_MODE).multiply(new BigDecimal("100000000"));
     }
 
-
-    @Override
-    public int getForkId() {
-        return super.getForkId();
-    }
-
     @Override
     public void addBalanceChangedListener(OnBalanceChangedListener listener) {
         if (listener != null && !balanceListeners.contains(listener))
@@ -641,7 +635,7 @@ public class WalletBchManager extends BRCoreWalletManager implements BaseWalletM
         BRCoreTransaction arr[] = new BRCoreTransaction[txs.size()];
         for (int i = 0; i < txs.size(); i++) {
             BRTransactionEntity ent = txs.get(i);
-            arr[i] = new BRCoreTransaction(ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
+            arr[i] = new BRCoreTransaction(getParams(), ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
         }
         return arr;
     }
@@ -656,7 +650,7 @@ public class WalletBchManager extends BRCoreWalletManager implements BaseWalletM
         for (int i = 0; i < blocks.size(); i++) {
 
             BRMerkleBlockEntity ent = blocks.get(i);
-            arr[i] = new BRCoreMerkleBlock(ent.getBuff(), ent.getBlockHeight());
+            arr[i] = new BRCoreMerkleBlock(getAlgoId(), ent.getBuff(), ent.getBlockHeight());
         }
         return arr;
     }

@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Скопировано в буфер обмена.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Эл. почта</string>
+  <string name="Receive.emailButton">Просматривать</string>
   <!-- Request button label -->
   <string name="Receive.request">Запросить сумму</string>
   <!-- Share button label -->

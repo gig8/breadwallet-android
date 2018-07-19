@@ -66,6 +66,42 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
              src/main/jni/breadwallet-core/bcash/BRBCashParams.h
 
+             # Mota files
+             src/main/jni/breadwallet-core/mota/BRMotaParams.h
+             src/main/jni/breadwallet-core/mota/BRX13Crypto.c
+             src/main/jni/breadwallet-core/mota/BRX13Crypto.h
+
+             # X11 files
+             src/main/jni/breadwallet-core/crypto/aes_helper.c
+             src/main/jni/breadwallet-core/crypto/blake.c
+             src/main/jni/breadwallet-core/crypto/bmw.c
+             src/main/jni/breadwallet-core/crypto/cubehash.c
+             src/main/jni/breadwallet-core/crypto/echo.c
+             src/main/jni/breadwallet-core/crypto/fugue.c
+             src/main/jni/breadwallet-core/crypto/groestl.c
+             src/main/jni/breadwallet-core/crypto/hamsi_helper.c
+             src/main/jni/breadwallet-core/crypto/hamsi.c
+             src/main/jni/breadwallet-core/crypto/jh.c
+             src/main/jni/breadwallet-core/crypto/keccak.c
+             src/main/jni/breadwallet-core/crypto/luffa.c
+             src/main/jni/breadwallet-core/crypto/shavite.c
+             src/main/jni/breadwallet-core/crypto/simd.c
+             src/main/jni/breadwallet-core/crypto/skein.c
+             src/main/jni/breadwallet-core/crypto/sph_blake.h
+             src/main/jni/breadwallet-core/crypto/sph_bmw.h
+             src/main/jni/breadwallet-core/crypto/sph_cubehash.h
+             src/main/jni/breadwallet-core/crypto/sph_echo.h
+             src/main/jni/breadwallet-core/crypto/sph_fugue.h
+             src/main/jni/breadwallet-core/crypto/sph_groestl.h
+             src/main/jni/breadwallet-core/crypto/sph_hamsi.h
+             src/main/jni/breadwallet-core/crypto/sph_jh.h
+             src/main/jni/breadwallet-core/crypto/sph_keccak.h
+             src/main/jni/breadwallet-core/crypto/sph_luffa.h
+             src/main/jni/breadwallet-core/crypto/sph_shavite.h
+             src/main/jni/breadwallet-core/crypto/sph_simd.h
+             src/main/jni/breadwallet-core/crypto/sph_skein.h
+             src/main/jni/breadwallet-core/crypto/sph_types.h
+
              # Core JNI files
              src/main/jni/breadwallet-core/Java/BRCoreJni.h
              src/main/jni/breadwallet-core/Java/BRCoreJni.c
@@ -96,11 +132,6 @@ add_library( # The name of the library.
              src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.c
              src/main/jni/breadwallet-core/Java/com_breadwallet_core_BRCoreWallet.h
 
-             # BCash files
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.c
-             src/main/jni/breadwallet-core/bcash/BRBCashAddr.h
-             src/main/jni/breadwallet-core/bcash/BRBCashParams.h
-
              # Bech32 files
              src/main/jni/breadwallet-core/BRBech32.c
              src/main/jni/breadwallet-core/BRBech32.h
@@ -108,6 +139,7 @@ add_library( # The name of the library.
              )
 
 include_directories(src/main/jni/breadwallet-core/bcash)
+include_directories(src/main/jni/breadwallet-core/mota)
 include_directories(src/main/jni/breadwallet-core/Java)
 include_directories(src/main/jni/breadwallet-core/)
 include_directories(src/main/jni/breadwallet-core/secp256k1/include)
