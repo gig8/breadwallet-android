@@ -331,7 +331,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Copiado en el portapapeles.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Correo electrónico</string>
+  <string name="Receive.emailButton">Vistazo</string>
   <!-- Request button label -->
   <string name="Receive.request">Solicitar una cantidad</string>
   <!-- Share button label -->

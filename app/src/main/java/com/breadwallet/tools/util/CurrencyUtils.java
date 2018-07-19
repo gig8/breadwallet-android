@@ -52,7 +52,7 @@ public class CurrencyUtils {
     public static String getFormattedAmount(Context app, String iso, BigDecimal amount) {
         if (amount == null) return "---"; //to be able to detect in a bug
         if (iso == null) return "???"; //to be able to detect in a bug
-//        Log.e(TAG, "amount: " + amount);
+//        Log.e(TAG, "getFormattedAmount amount: " + amount);
         DecimalFormat currencyFormat;
 
         // This formats currency values as the user expects to read them (default locale).
@@ -68,6 +68,8 @@ public class CurrencyUtils {
         if (wallet != null) {
             symbol = wallet.getSymbol(app);
             amount = wallet.getCryptoForSmallestCrypto(app, amount);
+            //Log.e(TAG, "getFormattedAmount getCryptoForSmallestCrypto: " + amount);
+
         } else {
             try {
                 currency = Currency.getInstance(iso);
@@ -80,11 +82,23 @@ public class CurrencyUtils {
         decimalFormatSymbols.setCurrencySymbol(symbol);
 //        currencyFormat.setMaximumFractionDigits(decimalPoints);
         currencyFormat.setGroupingUsed(true);
-        currencyFormat.setMaximumFractionDigits(currency != null ? currency.getDefaultFractionDigits() : wallet.getMaxDecimalPlaces(app));
+
+//        Log.e(TAG, "getFormattedAmount initial pattern: " + currencyFormat.toPattern());
         currencyFormat.setDecimalFormatSymbols(decimalFormatSymbols);
-        currencyFormat.setNegativePrefix(decimalFormatSymbols.getCurrencySymbol() + "-");
+        currencyFormat.setMaximumFractionDigits(currency != null ? currency.getDefaultFractionDigits() + 2 : wallet.getMaxDecimalPlaces(app));
+//        Log.e(TAG, "getFormattedAmount getMaximumFractionDigits: " + currencyFormat.getMaximumFractionDigits());
+//        Log.e(TAG, "getFormattedAmount pattern: " + currencyFormat.toPattern());
+
+
+        currencyFormat.setNegativePrefix("-" + decimalFormatSymbols.getCurrencySymbol());
         currencyFormat.setNegativeSuffix("");
-        return currencyFormat.format(amount.doubleValue());
+
+
+        String result = null;
+        result = currencyFormat.format(amount.doubleValue());
+//        Log.e(TAG, "getFormattedAmount result: " + result);
+
+        return result;
     }
 
     public static String getSymbolByIso(Context app, String iso) {

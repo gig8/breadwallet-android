@@ -55,6 +55,8 @@ gradle.properties
 .idea/runConfigurations.xml
 .idea/copyright/profiles_settings.xml
 .navigation/
+.idea/caches/build_file_checksums.ser
+.idea/codeStyles/Project.xml
 
 # jniLibs files
 #NDK

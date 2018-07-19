@@ -6,11 +6,11 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
-        applicationId = 'com.breadwallet'
+        applicationId = 'com.realmotacoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 211
-        versionName "211"
+        versionCode 309
+        versionName "1.0.7"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
@@ -19,7 +19,8 @@ android {
         ndk {
             // Specifies the ABI configurations of your native
             // libraries Gradle should build and package with your APK.
-            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 'armeabi',
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
         externalNativeBuild {
             cmake {
@@ -51,10 +52,10 @@ android {
     flavorDimensions "mode"
 
     productFlavors {
-        brd {
-            applicationId = "com.breadwallet"
+        mota {
+            applicationId = "com.realmotacoin"
             dimension "mode"
-            resValue "string", "app_name", "BRD"
+            resValue "string", "app_name", "MotaCoin"
             buildConfigField "boolean", "BITCOIN_TESTNET", "false"
 
             externalNativeBuild {
@@ -68,10 +69,10 @@ android {
             }
         }
 
-        brdTestnet {
-            applicationId = "com.breadtestnet"
+        motaTestnet {
+            applicationId = "com.motatestnet"
             dimension "mode"
-            resValue "string", "app_name", "BRD-testnet"
+            resValue "string", "app_name", "MotaCoinTest"
             buildConfigField "boolean", "BITCOIN_TESTNET", "true"
 
             externalNativeBuild {

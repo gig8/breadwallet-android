@@ -155,7 +155,7 @@ public class WalletBitcoinManager extends BRCoreWalletManager implements BaseWal
                 Log.e(TAG, "connectWallet: app is null");
                 return;
             }
-            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address();
+            String firstAddress = masterPubKey.getPubKeyAsCoreKey().address(chainParams);
             BRSharedPrefs.putFirstAddress(app, firstAddress);
             long fee = BRSharedPrefs.getFeePerKb(app, getIso(app));
             long economyFee = BRSharedPrefs.getEconomyFeePerKb(app, getIso(app));
@@ -520,11 +520,6 @@ public class WalletBitcoinManager extends BRCoreWalletManager implements BaseWal
     }
 
     @Override
-    public int getForkId() {
-        return super.getForkId();
-    }
-
-    @Override
     public void addBalanceChangedListener(OnBalanceChangedListener listener) {
         if (listener != null && !balanceListeners.contains(listener))
             balanceListeners.add(listener);
@@ -647,7 +642,7 @@ public class WalletBitcoinManager extends BRCoreWalletManager implements BaseWal
         BRCoreTransaction arr[] = new BRCoreTransaction[txs.size()];
         for (int i = 0; i < txs.size(); i++) {
             BRTransactionEntity ent = txs.get(i);
-            arr[i] = new BRCoreTransaction(ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
+            arr[i] = new BRCoreTransaction(getParams(), ent.getBuff(), ent.getBlockheight(), ent.getTimestamp());
         }
         return arr;
     }
@@ -660,7 +655,7 @@ public class WalletBitcoinManager extends BRCoreWalletManager implements BaseWal
         BRCoreMerkleBlock arr[] = new BRCoreMerkleBlock[blocks.size()];
         for (int i = 0; i < blocks.size(); i++) {
             BRMerkleBlockEntity ent = blocks.get(i);
-            arr[i] = new BRCoreMerkleBlock(ent.getBuff(), ent.getBlockHeight());
+            arr[i] = new BRCoreMerkleBlock(getAlgoId(), ent.getBuff(), ent.getBlockHeight());
         }
         return arr;
     }

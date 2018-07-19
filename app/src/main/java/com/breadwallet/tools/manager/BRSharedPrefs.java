@@ -268,7 +268,7 @@ public class BRSharedPrefs {
     //if the user prefers all in crypto units, not fiat currencies
     public static boolean isCryptoPreferred(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getBoolean("priceInCrypto", false);
+        return prefs.getBoolean("priceInCrypto", true);
     }
 
     //if the user prefers all in crypto units, not fiat currencies
@@ -307,7 +307,7 @@ public class BRSharedPrefs {
 //        Log.d(TAG, "getCurrentWalletIso() Activity -> " + activity.getClass().getSimpleName());
         SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 //        Log.d(TAG, "Getting current wallet ISO -> " + prefs.getString("currentWalletIso", "BTC"));
-        return prefs.getString("currentWalletIso", "BTC");
+        return prefs.getString("currentWalletIso", "MOTA");
     }
 
     public static void putCurrentWalletIso(Context activity, String iso) {
@@ -386,7 +386,7 @@ public class BRSharedPrefs {
     // BTC, mBTC, Bits
     public static int getCryptoDenomination(Context context, String iso) {//ignore iso, using same denomination for both for now
         SharedPreferences settingsToGet = context.getSharedPreferences(PREFS_NAME, 0);
-        return settingsToGet.getInt("currencyUnit", BRConstants.CURRENT_UNIT_BITS);
+        return settingsToGet.getInt("currencyUnit", BRConstants.CURRENT_UNIT_BITCOINS);
     }
 
     // BTC, mBTC, Bits

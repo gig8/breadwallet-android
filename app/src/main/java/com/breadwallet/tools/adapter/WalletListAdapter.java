@@ -78,6 +78,8 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         String fiatBalance = CurrencyUtils.getFormattedAmount(mContext, BRSharedPrefs.getPreferredFiatIso(mContext), wallet.getFiatBalance(mContext));
         String cryptoBalance = CurrencyUtils.getFormattedAmount(mContext, wallet.getIso(mContext), new BigDecimal(wallet.getCachedBalance(mContext)));
 
+        // Log.e(TAG, "exchangeRate.." + exchangeRate);
+
         final String iso = wallet.getIso(mContext);
 
         // Set wallet fields

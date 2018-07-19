@@ -46,6 +46,7 @@ public class DisplayCurrencyActivity extends BRActivity {
     public static boolean appVisible = false;
     private static DisplayCurrencyActivity app;
     private Button leftButton;
+//    private Button middleButton;
     private Button rightButton;
     BaseWalletManager mWalletManager;
 
@@ -80,6 +81,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         adapter = new CurrencyListAdapter(this);
         adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies(this, WalletsMaster.getInstance(this).getCurrentWallet(this).getIso(this)));
         leftButton = findViewById(R.id.left_button);
+//        middleButton = findViewById(R.id.middle_button);
         rightButton = findViewById(R.id.right_button);
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +90,13 @@ public class DisplayCurrencyActivity extends BRActivity {
             }
         });
 
+//        middleButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setButton(false);
+//            }
+//        });
+
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,11 +104,11 @@ public class DisplayCurrencyActivity extends BRActivity {
             }
         });
 
-        int unit = BRSharedPrefs.getCryptoDenomination(this, "BTC"); // any iso, using one for all for now
+        int unit = BRSharedPrefs.getCryptoDenomination(this, "MOTA"); // any iso, using one for all for now
         if (unit == BRConstants.CURRENT_UNIT_BITS) {
-            setButton(true);
-        } else {
             setButton(false);
+        } else {
+            setButton(true);
         }
         updateExchangeRate();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -134,13 +143,13 @@ public class DisplayCurrencyActivity extends BRActivity {
 
     private void setButton(boolean left) {
         if (left) {
-            BRSharedPrefs.putCryptoDenomination(this, mWalletManager.getIso(this), BRConstants.CURRENT_UNIT_BITS);
+            BRSharedPrefs.putCryptoDenomination(this, mWalletManager.getIso(this), BRConstants.CURRENT_UNIT_BITCOINS);
             leftButton.setTextColor(getColor(R.color.white));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue));
             rightButton.setTextColor(getColor(R.color.dark_blue));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue_stroke));
         } else {
-            BRSharedPrefs.putCryptoDenomination(this, mWalletManager.getIso(this), BRConstants.CURRENT_UNIT_BITCOINS);
+            BRSharedPrefs.putCryptoDenomination(this, mWalletManager.getIso(this), BRConstants.CURRENT_UNIT_BITS);
             leftButton.setTextColor(getColor(R.color.dark_blue));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue_stroke));
             rightButton.setTextColor(getColor(R.color.white));

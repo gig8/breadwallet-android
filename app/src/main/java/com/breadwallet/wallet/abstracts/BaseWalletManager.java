@@ -3,6 +3,7 @@ package com.breadwallet.wallet.abstracts;
 import android.content.Context;
 
 import com.breadwallet.core.BRCoreAddress;
+import com.breadwallet.core.BRCoreChainParams;
 import com.breadwallet.core.BRCoreMerkleBlock;
 import com.breadwallet.core.BRCorePeer;
 import com.breadwallet.core.BRCorePeerManager;
@@ -52,6 +53,9 @@ public interface BaseWalletManager {
 
     //get the core wallet
     int getForkId();
+
+    // get the params
+    BRCoreChainParams getParams();
 
     //get the core peerManager
     BRCorePeerManager getPeerManager();

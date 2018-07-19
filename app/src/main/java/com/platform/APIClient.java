@@ -8,6 +8,7 @@ import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
 import com.breadwallet.BreadApp;
+import com.breadwallet.core.BRCoreChainParams;
 import com.breadwallet.core.BRCoreKey;
 import com.breadwallet.presenter.activities.util.ActivityUTILS;
 import com.breadwallet.tools.crypto.Base58;
