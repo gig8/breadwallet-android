@@ -9,8 +9,8 @@ android {
         applicationId = 'com.realmotacoin'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 308
-        versionName "1.0.6"
+        versionCode 309
+        versionName "1.0.7"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
