@@ -59,6 +59,7 @@
 
             <ImageButton
                 android:id="@+id/faq_button"
+                android:visibility="gone"
                 android:layout_width="@dimen/faq_dimen"
                 android:layout_height="@dimen/faq_dimen"
                 android:layout_alignBottom="@+id/title"
@@ -142,8 +143,7 @@
                 android:textColor="@color/light_gray"
                 android:textSize="16sp"
                 app:buttonType="2"
-                app:isBreadButton="true"
-                />
+                app:isBreadButton="true" />
 
         </LinearLayout>
 
