@@ -8,8 +8,8 @@ android {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'com.realmotacoin'
         minSdkVersion 23
-        versionCode 314
-        versionName "1.0.14"
+        versionCode 315
+        versionName "1.0.15"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
