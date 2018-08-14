@@ -171,7 +171,10 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             @Override
             public void onClick(View view) {
                 if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.openScanner(WalletActivity.this, BRConstants.SCANNER_REQUEST);
+
+                Intent intent = new Intent(WalletActivity.this, ImportActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         });
 
