@@ -34,6 +34,7 @@ import android.widget.ViewFlipper;
 
 import com.breadwallet.R;
 import com.breadwallet.core.BRCorePeer;
+import com.breadwallet.presenter.activities.settings.ImportActivity;
 import com.breadwallet.presenter.activities.settings.WebViewActivity;
 import com.breadwallet.presenter.activities.util.BRActivity;
 import com.breadwallet.presenter.customviews.BRButton;
@@ -85,6 +86,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
     Toolbar mToolbar;
     ImageButton mBackButton;
     BRButton mSendButton;
+    BRButton mImportButton;
     BRButton mReceiveButton;
     BRButton mBuyButton;
     BRText mBalanceLabel;
@@ -122,6 +124,7 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         mToolbar = findViewById(R.id.bread_bar);
         mBackButton = findViewById(R.id.back_icon);
         mSendButton = findViewById(R.id.send_button);
+        mImportButton = findViewById(R.id.import_button);
         mReceiveButton = findViewById(R.id.receive_button);
         mBuyButton = findViewById(R.id.buy_button);
         barFlipper = findViewById(R.id.tool_bar_flipper);
@@ -163,7 +166,16 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
             }
         });
 
-        mSendButton.setHasShadow(false);
+        mImportButton.setHasShadow(false);
+        mImportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!BRAnimator.isClickAllowed()) return;
+                BRAnimator.openScanner(WalletActivity.this, BRConstants.SCANNER_REQUEST);
+            }
+        });
+
+        mReceiveButton.setHasShadow(false);
         mReceiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,21 +292,30 @@ public class WalletActivity extends BRActivity implements InternetManager.Connec
         } else {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    Utils.getPixelsFromDps(this, 65), 1.5f
+                    Utils.getPixelsFromDps(this, 65), 1.3333f
             );
 
             LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    Utils.getPixelsFromDps(this, 65), 1.5f
+                    Utils.getPixelsFromDps(this, 65), 1.3333f
             );
+
+            LinearLayout.LayoutParams param3 = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    Utils.getPixelsFromDps(this, 65), 1.3333f
+            );
+
             param.gravity = Gravity.CENTER;
             param2.gravity = Gravity.CENTER;
+            param3.gravity = Gravity.CENTER;
 
             param.setMargins(Utils.getPixelsFromDps(this, 8), Utils.getPixelsFromDps(this, 8), Utils.getPixelsFromDps(this, 8), 0);
             param2.setMargins(0, Utils.getPixelsFromDps(this, 8), Utils.getPixelsFromDps(this, 8), 0);
+            param3.setMargins(0, Utils.getPixelsFromDps(this, 8), Utils.getPixelsFromDps(this, 8), 0);
 
             mSendButton.setLayoutParams(param);
-            mReceiveButton.setLayoutParams(param2);
+            mImportButton.setLayoutParams(param2);
+            mReceiveButton.setLayoutParams(param3);
             mBuyButton.setVisibility(View.GONE);
 
         }
