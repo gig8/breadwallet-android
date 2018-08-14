@@ -758,6 +758,7 @@
   <string name="CurrencyBalance">Balance</string>
   <string name="CurrencyBuy">Buy</string>
   <string name="CurrencySend">Send</string>
+  <string name="CurrencyImport">Import</string>
   <string name="CurrencyReceive">Receive</string>
   <string name="TotalAssets">total assets</string>
   <string name="Portfolio">Portfolio</string>

@@ -263,7 +263,7 @@
         android:background="@color/extra_light_blue_background"
         android:elevation="0dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
 
         <com.breadwallet.presenter.customviews.BRButton
@@ -285,6 +285,24 @@
             app:hasShadow="false"
             app:isBreadButton="true"/>
 
+        <com.breadwallet.presenter.customviews.BRButton
+            android:id="@+id/import_button"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="22dp"
+            android:layout_weight="1"
+            android:background="@color/currency_buttons_color"
+            android:text="@string/CurrencyImport"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:buttonType="4"
+            app:customTFont="CircularPro-Bold.otf"
+            app:hasShadow="false"
+            app:isBreadButton="true"/>
 
         <com.breadwallet.presenter.customviews.BRButton
             android:id="@+id/receive_button"
